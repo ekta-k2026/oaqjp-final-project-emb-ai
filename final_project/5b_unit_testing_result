@@ -1,0 +1,7 @@
+PYTHONPATH=. python3 -m unittest -v test_emotion_detection.py
+test_emotions (test_emotion_detection.TestEmotionDetection) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.571s
+
+OK
