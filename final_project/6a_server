@@ -1,0 +1,29 @@
+from flask import Flask, request
+from EmotionDetection import emotion_detector
+
+app = Flask(__name__)
+
+@app.route('/emotionDetector', methods=['POST'])
+def detect_emotion():
+    # Get JSON data from request
+    data = request.get_json()
+    if not data or 'text' not in data:
+        return "Invalid request: JSON with 'text' field required", 400
+
+    text_to_analyze = data['text']
+
+    # Call the emotion_detector function
+    result = emotion_detector(text_to_analyze)
+
+    # Prepare the response string as per example
+    response_str = (
+        f"For the given statement, the system response is "
+        f"'anger': {result['anger']}, 'disgust': {result['disgust']}, "
+        f"'fear': {result['fear']}, 'joy': {result['joy']} and "
+        f"'sadness': {result['sadness']}. The dominant emotion is {result['dominant_emotion']}."
+    )
+
+    return response_str
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
